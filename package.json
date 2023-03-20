@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
     "build": "rm -fr build && cd ./bloglist-frontend && rm -rf node_modules && npm install && npm run build && cp -r build ../",
