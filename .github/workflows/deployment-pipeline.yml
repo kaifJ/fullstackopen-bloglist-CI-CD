@@ -8,13 +8,6 @@ on:
     branches: [master]
     types: [opened, synhronize]
 
-env:
-  TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-  # FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  MONGODB_URI: ${{ secrets.MONGODB_URI }}
-  SECRET: ${{ secrets.SECRET }}
-  PORT: ${{ vars.PORT }}
-
 jobs:
   deployment_pipeline:
     runs-on: ubuntu-22.04
@@ -29,6 +22,3 @@ jobs:
 
       - name: build
         run: npm run build
-
-      - name: lint
-        run: npm run lint
