@@ -11,7 +11,6 @@
     "deploy:full": "npm run build && npm run deploy",
     "lint": "eslint .",
     "eslint": "eslint './**/*.{js,jsx}'",
-    "start:testServer": "NODE_ENV=test node index.js",
     "test:e2e": "cd ./bloglist-frontend && npm run cypress:open"
   },
   "keywords": [],
