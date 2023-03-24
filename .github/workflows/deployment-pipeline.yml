@@ -22,3 +22,20 @@ jobs:
 
       - name: build
         run: npm run build:ui
+
+  deploy_and_tag:
+    needs: [deployment_pipeline]
+    if: ${{ (github.event_name == 'push') && !(contains(join(github.event.commits.*.message), 'skip')) }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: deploy
+        run: flyctl deploy --remote-only
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.61.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
