@@ -27,6 +27,8 @@ jobs:
     needs: [deployment_pipeline]
     if: ${{ (github.event_name == 'push') && !(contains(join(github.event.commits.*.message), 'skip')) }}
     runs-on: ubuntu-22.04
+    permissions:
+      write-all
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
