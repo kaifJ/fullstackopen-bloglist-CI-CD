@@ -35,21 +35,21 @@ const App = () => {
     }
 
     let found = persons.find(person => person.name === newName)
-    if (found){
-      if(window.confirm(`${newName} is already added to phonebook, replace the old number with new number ?`)){
-       phonebookServices.updatePhonebook(found.id, newEntry)
-       .then(response=> {
-          let updatedPhonebook = persons.map(person => person.id !== response.id ? person : response)
-          setPersons(updatedPhonebook)
-       })
-       .catch(err => {
-        console.log(`Something went wrong: ${err}`)
-        setErrorMessage(`Information of ${newName} has already been removed from server`)
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-       })
-      }else return 
+    if (found) {
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with new number ?`)) {
+        phonebookServices.updatePhonebook(found.id, newEntry)
+          .then(response => {
+            let updatedPhonebook = persons.map(person => person.id !== response.id ? person : response)
+            setPersons(updatedPhonebook)
+          })
+          .catch(err => {
+            console.log(`Something went wrong: ${err}`)
+            setErrorMessage(`Information of ${newName} has already been removed from server`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+          })
+      } else return
     }
     else {
       phonebookServices.create(newEntry).then(response => {
@@ -58,7 +58,7 @@ const App = () => {
         setSuccessMessage(`Added ${newName}`)
         setTimeout(() => {
           setSuccessMessage(null)
-        },5000)
+        }, 5000)
       }).catch(err => {
         let message = err.response.data.error
         setErrorMessage(message)
@@ -86,27 +86,27 @@ const App = () => {
   }
 
   const handleDelete = (id) => {
-    if(window.confirm(`Are you sure you want to delete`)){
+    if (window.confirm(`Are you sure you want to delete`)) {
       phonebookServices.deletePerson(id)
-    .then(response => {
-      let updatedPhonebook = [...persons]
-      updatedPhonebook.pop()
-      setPersons(updatedPhonebook)
-    })
-    .catch(err => {
-      console.log(`Some Error occured: ${err}`)
-      setErrorMessage(`Information of ${newName} has already been removed from server`)
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    })
-    }else return 
+        .then(response => {
+          let updatedPhonebook = [...persons]
+          updatedPhonebook.pop()
+          setPersons(updatedPhonebook)
+        })
+        .catch(err => {
+          console.log(`Some Error occured: ${err}`)
+          setErrorMessage(`Information of ${newName} has already been removed from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+    } else return
   }
 
   return (
     <div>
-      <h2>Phonebook</h2>
-      <Notification message={errorMessage || successMessage} type={errorMessage ? 'error' : 'success'}/>
+      <h2>Phonebook: Customised for your comfort!</h2>
+      <Notification message={errorMessage || successMessage} type={errorMessage ? 'error' : 'success'} />
       <Filter
         filterValue={filter}
         handleFilterChange={handleFilterChange}
